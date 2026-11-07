@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Lab Maya Bangun Ruang Kelas 9</title><meta name="description" content="Laboratorium virtual bangun ruang, offline">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html,body{margin:0;height:100%;background:#050d1f;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--k,1));background:linear-gradient(135deg,#0B1B3A,#123B6D);color:#F8FAFC;display:grid;grid-template:52px 1fr 214px/200px 1fr 330px;gap:8px;padding:8px;box-sizing:border-box;font-size:13px}
+.g{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;backdrop-filter:blur(8px);padding:8px;overflow:auto;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+button{font:inherit;color:#F8FAFC;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.5);border-radius:10px;min-height:44px;padding:0 10px;cursor:pointer;touch-action:manipulation;transition:transform .1s,box-shadow .2s}
+button:hover{box-shadow:0 0 12px #22D3EE88}button:active{transform:scale(.97)}button.on{background:#22D3EE;color:#0B1B3A;font-weight:700}
+h1{font-size:20px;margin:0}h3{font-size:14px;margin:0 0 4px;color:#FBBF24}
+#hd{grid-column:1/4;display:flex;align-items:center;gap:10px}#tip{background:rgba(255,255,255,.12);border-radius:10px;padding:4px 8px;max-width:230px;font-size:12px;color:#CBD5E1}
+.chips{display:flex;gap:4px;flex:1;flex-wrap:wrap}.chip{padding:3px 7px;border-radius:99px;background:rgba(255,255,255,.1);font-size:11px;color:#CBD5E1}.chip.d{background:#34D399;color:#062}
+#pb{height:6px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-top:3px}#pbf{height:100%;width:0;background:linear-gradient(90deg,#22D3EE,#34D399);transition:width .4s}
+#left{display:flex;flex-direction:column;gap:3px}#left button{text-align:left;min-height:36px;font-size:12px}
+#mid{display:flex;flex-direction:column;gap:6px;padding:8px}#card{font-size:12px;color:#CBD5E1;min-height:34px}
+#cw{position:relative;width:640px;height:290px;margin:auto}canvas{background:rgba(5,13,31,.4);border-radius:10px;touch-action:none;cursor:grab}
+.row{display:flex;gap:6px}.row button{flex:1}
+#left details{margin:0;padding:2px 6px}#left summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:700;color:#FBBF24}#left .dg{display:flex;flex-direction:column;gap:3px;padding-bottom:4px}select{background:#0B1B3A;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;min-height:36px;width:100%;font:inherit}
+#wc button{min-height:30px;padding:0 4px;flex:0 0 47%;font-size:12px}
+#zb button{min-height:38px;width:38px;padding:0;font-size:18px}.sl{margin:4px 0}
+.sc{flex:1;background:rgba(255,255,255,.07);border-radius:10px;padding:5px;min-width:0}.sc .sl{margin:1px 0;font-size:11px}.sc input[type=range]{height:20px}.sc select{min-height:30px;font-size:12px;margin:2px 0}#cs{display:flex;gap:6px;margin-top:4px}.sl label{display:flex;justify-content:space-between;color:#CBD5E1}.sl input{width:100%;accent-color:#22D3EE;height:28px}
+.res b{color:#FBBF24}.res div{margin:2px 0}.fm{color:#22D3EE;font-family:ui-monospace,monospace;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}td,th{border-bottom:1px solid rgba(255,255,255,.15);padding:2px 3px;text-align:left}
+.bar{height:8px;border-radius:4px;margin:2px 0}
+#hots{grid-column:1/3;display:flex;flex-direction:column;gap:4px}#qn{display:flex;gap:3px}#qn button{min-height:44px;min-width:44px;padding:0;flex:1}#qn button.ok{background:#34D399;color:#052}
+#q{font-size:14px;line-height:1.35}input[type=text],textarea{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.3);border-radius:8px;color:#fff;padding:6px;font:inherit}
+details{background:rgba(255,255,255,.07);border-radius:8px;padding:4px 8px;margin-top:2px}details ol{margin:4px 0 0;padding-left:18px}
+.bd{display:inline-block;padding:2px 6px;margin:2px;border-radius:99px;background:rgba(255,255,255,.1);color:#778;font-size:11px}.bd.on{background:#FBBF24;color:#321;font-weight:700}
+textarea{width:100%;height:46px;resize:none;box-sizing:border-box}
+</style></head><body>
+<div id="stage">
+<div id="hd" class="g"><svg width="40" height="40" viewBox="0 0 40 40" aria-label="Prof. Kubi"><rect x="6" y="8" width="28" height="26" rx="6" fill="#22D3EE"/><circle cx="15" cy="19" r="3" fill="#0B1B3A"/><circle cx="25" cy="19" r="3" fill="#0B1B3A"/><path d="M14 27q6 5 12 0" stroke="#0B1B3A" fill="none" stroke-width="2"/><path d="M20 8V3" stroke="#FBBF24" stroke-width="3"/></svg><div id="tip"></div><div><h1>Lab Maya Bangun Ruang</h1><div id="pb"><div id="pbf"></div></div></div><div class="chips" id="chips"></div><div id="lv" style="text-align:right;min-width:120px">⭐ <b id="sc">0</b><br><span id="lvn">Pemula</span> · <span id="pp">0%</span></div></div>
+<div id="left" class="g"><h3>1 · Pilih Bangun</h3></div>
+<div id="mid" class="g"><div id="card"></div><div id="cw"><canvas id="cv" width="640" height="290"></canvas><div id="zb" style="position:absolute;right:6px;top:6px;display:flex;flex-direction:column;gap:4px"><button data-z="1.2" title="Zoom in">＋</button><button data-z="0.83" title="Zoom out">－</button><button data-z="0" title="Reset zoom">⟲</button></div><div id="wc" class="g" style="position:absolute;left:6px;top:6px;width:172px;padding:6px"><div style="font-size:12px"><b>Penanda:</b></div><div class="row" style="flex-wrap:wrap;gap:3px"><button data-k="r" style="border-color:#FBBF24">▬ Rusuk</button><button data-k="t" style="border-color:#34D399">● Titik sudut</button><button data-k="dr" style="border-color:#C084FC">╱ Diag. ruang</button><button data-k="ds" style="border-color:#FB7185">┄ Diag. sisi</button></div><div id="wl" style="font-size:11px;color:#CBD5E1;margin-top:3px;max-height:110px;overflow:auto"></div></div></div>
+<div class="row" style="align-items:center"><button id="bNet">📐 Buka Jaring</button><button id="nP" style="flex:0 0 50px">◀</button><span id="nl" style="flex:1.6;text-align:center;font-size:12px"></span><button id="nN" style="flex:0 0 50px">▶</button></div></div>
+<div id="right" class="g"><h3>2 · Atur Variabel</h3><div id="sls"></div><h3>4 · Hasil Pengamatan</h3><div class="res" id="res"></div><h3>🔁 Rumus Mencari Komponen</h3><div id="io" class="res fm" style="line-height:1.5"></div><h3>5 · Bandingkan</h3><div class="row"><button id="sA">Simpan A</button><button id="sB">Simpan B</button></div><div id="cmp" style="margin-top:4px"></div></div>
+<div id="hots" class="g"><div style="display:flex;gap:8px;align-items:center"><h3 style="margin:0">🏆 Tantangan HOTS</h3><div id="qn" style="flex:1"></div></div><div id="q"></div>
+<div class="row" style="align-items:center"><input type="text" id="ans" placeholder="Jawabanmu (angka)" style="flex:1;min-height:36px"><span id="un"></span><button id="chk" style="flex:0 0 120px">✅ Cek</button><button id="hint" style="flex:0 0 110px">📝 Petunjuk</button><button id="swp" style="flex:0 0 120px">🎲 Ganti Soal</button></div><div id="fb"></div><details><summary>🔍 Langkah Pengerjaan</summary><ol id="st"></ol><div id="kc" style="color:#FBBF24;margin-top:3px"></div></details></div>
+<div id="conc" class="g"><h3>6 · Kesimpulan Otomatis</h3><div id="cc" style="color:#CBD5E1"></div><textarea id="rf" placeholder="Refleksimu: apa yang kamu temukan?"></textarea><div id="bds"></div></div>
+<div id="cmb" class="g" style="display:none;position:absolute;left:216px;top:68px;width:1056px;height:422px;z-index:6;background:rgba(11,27,58,.97);box-sizing:border-box;gap:10px;grid-template-columns:500px 1fr"><div><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🧩 Gabungkan Bangun (maks. 3)</h3><button id="cx" style="min-height:34px">✖ Tutup</button></div><canvas id="cv2" width="480" height="190" style="margin-top:4px"></canvas><div id="cs"></div></div><div id="ci" class="res" style="overflow:auto;font-size:13px"></div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id),PI=Math.PI,fmt=n=>(Math.round(n*100)/100).toLocaleString('id-ID');
+const M={
+kubus:{n:'Kubus',v:{s:['Rusuk s',1,20,6]},r:['6s²','s³'],c:'6 sisi persegi · 12 rusuk · 8 titik sudut · 4 diagonal ruang · 6 bidang diagonal'},
+balok:{n:'Balok',v:{p:['Panjang p',1,20,8],l:['Lebar l',1,20,5],t:['Tinggi t',1,20,4]},r:['2(pl+pt+lt)','p×l×t'],c:'6 sisi persegi panjang · 12 rusuk · 8 titik sudut · 4 diagonal ruang · 6 bidang diagonal'},
+prisma:{n:'Prisma segi-6',v:{a:['Sisi alas a',1,15,6],t:['Tinggi t',1,20,10]},r:['6at + 2·(3√3/2)a²','(3√3/2)a²·t'],c:'8 sisi (2 alas + 6 tegak) · 18 rusuk · 12 titik sudut'},
+limas:{n:'Limas persegi',v:{s:['Sisi alas s',1,20,10],t:['Tinggi t',1,20,12]},r:['s² + 2s·√(t²+(s/2)²)','⅓·s²·t'],c:'5 sisi · 8 rusuk · 5 titik sudut'},
+prismaseg:{n:'Prisma segitiga',v:{a:['Sisi alas a',1,15,6],t:['Tinggi t',1,20,10]},r:['3at + 2·(√3/4)a²','(√3/4)a²·t'],c:'5 sisi (2 alas segitiga + 3 tegak) · 9 rusuk · 6 titik sudut (A–F)'},
+limasseg:{n:'Limas segitiga',v:{a:['Sisi alas a',1,15,8],t:['Tinggi t',1,20,9]},r:['(√3/4)a² + 3·½·a·√(t²+(a√3/6)²)','⅓·(√3/4)a²·t'],c:'4 sisi (alas + 3 tegak) · 6 rusuk · 4 titik sudut (A, B, C, T)'},
+tabung:{n:'Tabung',v:{r:['Jari-jari r',1,15,7],t:['Tinggi t',1,25,15]},r:['2πr(r+t)','πr²t'],c:'3 sisi (2 alas lingkaran + selimut) · 2 rusuk lengkung · 0 titik sudut'},
+kerucut:{n:'Kerucut',v:{r:['Jari-jari r',1,15,6],t:['Tinggi t',1,25,8]},r:['πr(r+s), s=√(r²+t²)','⅓πr²t'],c:'2 sisi (alas + selimut) · 1 rusuk lengkung · 1 titik sudut (puncak)'},
+bola:{n:'Bola',v:{r:['Jari-jari r',1,15,6]},r:['4πr²','4/3·πr³'],c:'1 sisi lengkung · 0 rusuk · 0 titik sudut'},
+ling:{n:'Lingkaran',v:{r:['Jari-jari r',1,20,14],d:['Sudut juring °',10,360,90]},r:['Busur = θ/360·2πr','Juring = θ/360·πr²'],c:'Keliling = 2πr · Luas = πr² · busur dan juring sebanding dengan sudut pusat θ'}};
+const S={m:'kubus',v:{},f:0,ft:0,w:0,wt:0,ang:.6,A:null,B:null,done:new Set(),vis:new Set(['kubus']),bd:new Set(),score:0,ok:{},tr:{},cur:0,drag:0,ling:0};
+const STEPS=['Pilih Bangun','Atur Variabel','Jalankan','Amati','Bandingkan','Simpulkan'],TIPS=['Halo! Pilih satu bangun di kiri.','Geser slider dan lihat angka berubah.','Coba Buka Jaring atau aktifkan penanda rusuk dan diagonal.','Amati hasil luas dan volume.','Simpan skenario A, ubah, lalu simpan B.','Tulis refleksimu di kanan bawah.','Hebat! Lanjut ke tantangan HOTS.'];
+const BADGES={pb:'Penjelajah Bangun',aj:'Arsitek Jaring',dl:'Detektif Lingkaran',jh:'Juara HOTS'};
+let au;function beep(f=660){try{au=au||new(window.AudioContext||window.webkitAudioContext)();const o=au.createOscillator(),g=au.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(au.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,au.currentTime+.15);o.stop(au.currentTime+.16)}catch(e){}}
+function mark(i){if(!S.done.has(i)){S.done.add(i);beep(880)}ui()}
+function badge(k){if(!S.bd.has(k)){S.bd.add(k);beep(1040);$('tip').textContent='🎉 Badge baru: '+BADGES[k]+'!'}ui()}
+function ui(){$('chips').innerHTML=STEPS.map((s,i)=>`<span class="chip ${S.done.has(i)?'d':''}">${i+1} ${s}</span>`).join('');const p=Math.round(S.done.size/6*100);$('pbf').style.width=p+'%';$('pp').textContent=p+'%';$('sc').textContent=S.score;const n=S.bd.size;$('lvn').textContent=n>=5?'Master':n>=3?'Arsitek':n>=1?'Penjelajah':'Pemula';
+ $('bds').innerHTML=Object.keys(BADGES).map(k=>`<span class="bd ${S.bd.has(k)?'on':''}">🏅 ${BADGES[k]}</span>`).join('');
+ const nx=[...Array(6).keys()].find(i=>!S.done.has(i));if(!$('tip').textContent.startsWith('🎉'))$('tip').textContent=TIPS[nx===undefined?6:nx];concl()}
+function calc(){const v=S.v,m=S.m;let L=0,V=null,x='';
+ if(m=='kubus'){L=6*v.s*v.s;V=v.s**3}else if(m=='balok'){L=2*(v.p*v.l+v.p*v.t+v.l*v.t);V=v.p*v.l*v.t}
+ else if(m=='prisma'){const A=3*Math.sqrt(3)/2*v.a*v.a;L=6*v.a*v.t+2*A;V=A*v.t}
+ else if(m=='limas'){const sl=Math.hypot(v.t,v.s/2);L=v.s*v.s+2*v.s*sl;V=v.s*v.s*v.t/3}
+ else if(m=='tabung'){L=2*PI*v.r*(v.r+v.t);V=PI*v.r*v.r*v.t}
+ else if(m=='kerucut'){L=PI*v.r*(v.r+Math.hypot(v.r,v.t));V=PI*v.r*v.r*v.t/3}
+ else if(m=='prismaseg'){const A=Math.sqrt(3)/4*v.a*v.a;L=3*v.a*v.t+2*A;V=A*v.t}
+ else if(m=='limasseg'){const A=Math.sqrt(3)/4*v.a*v.a,sl=Math.hypot(v.t,v.a*Math.sqrt(3)/6);L=A+1.5*v.a*sl;V=A*v.t/3}
+ else if(m=='bola'){L=4*PI*v.r*v.r;V=4/3*PI*v.r**3}
+ else{L=PI*v.r*v.r;x=`<div>Keliling = <b>${fmt(2*PI*v.r)}</b></div><div>Panjang busur = <b>${fmt(v.d/360*2*PI*v.r)}</b></div><div>Luas juring = <b>${fmt(v.d/360*L)}</b></div>`}
+ return{L,V,x}}
+const vs=()=>Object.keys(M[S.m].v).map(k=>k+'='+S.v[k]).join(', ');
+function res(){const c=calc(),m=M[S.m];$('res').innerHTML=`<div><b>Bangun:</b> ${m.n}</div><div><b>Variabel:</b> ${vs()} (cm)</div><div class="fm">${S.m=='ling'?m.r.join('<br>'):'L = '+m.r[0]+'<br>V = '+m.r[1]}</div><div>${S.m=='ling'?'Luas lingkaran':'Luas permukaan'} = <b>${fmt(c.L)} cm²</b></div>${c.V!=null?`<div>Volume = <b>${fmt(c.V)} cm³</b> (${fmt(c.V/1000)} L)</div>`:''}${c.x}`;
+ $('card').innerHTML='<b style="color:#22D3EE">'+m.n+':</b> '+m.c;inv();concl()}
+function sliders(){const m=M[S.m];$('sls').innerHTML=Object.entries(m.v).map(([k,a])=>`<div class="sl"><label>${a[0]}<b id="o${k}">${S.v[k]}</b></label><input type="range" id="s${k}" min="${a[1]}" max="${a[2]}" value="${S.v[k]}" step="1"></div>`).join('');
+ Object.keys(m.v).forEach(k=>$('s'+k).oninput=e=>{S.v[k]=+e.target.value;$('o'+k).textContent=S.v[k];mark(1);res();if(S.m=='ling'&&k=='d'&&S.ling++>3)badge('dl')})}
+function pick(k){S.m=k;S.v={};for(const a in M[k].v)S.v[a]=M[k].v[a][3];S.vis.add(k);S.f=S.ft=0;$('bNet').classList.remove('on');$('bNet').textContent='📐 Buka Jaring';
+ document.querySelectorAll('#left button').forEach(b=>b.classList.toggle('on',b.dataset.k==k));document.querySelectorAll('#left details').forEach(d=>d.open=!!d.querySelector('button.on'));mark(0);if(S.vis.size>=5)badge('pb');sliders();setIm();res()}
+[['🧊 Bangun Ruang Sisi Datar',['kubus','balok','prisma','prismaseg','limas','limasseg']],['🛢️ Bangun Ruang Sisi Lengkung',['tabung','kerucut','bola','ling']]].forEach(([t,ks])=>{const d=document.createElement('details');d.open=true;d.innerHTML='<summary>'+t+'</summary><div class="dg"></div>';ks.forEach(k=>{const b=document.createElement('button');b.textContent=M[k].n;b.dataset.k=k;b.onclick=()=>pick(k);d.lastChild.appendChild(b)});$('left').appendChild(d)});
+$('bNet').onclick=function(){if(S.m=='ling'||S.m=='bola'){$('tip').textContent='Bentuk ini tidak punya jaring datar. Coba bangun lain!';return}S.ft=S.ft?0:1;this.textContent=S.ft?'📦 Lipat Jaring':'📐 Buka Jaring';this.classList.toggle('on',!!S.ft);badge('aj');mark(2);setTimeout(()=>mark(3),1500);beep(520)};
+['A','B'].forEach(k=>$('s'+k).onclick=()=>{const c=calc();S[k]={n:M[S.m].n,vs:vs(),L:c.L,V:c.V};if(S.A&&S.B)mark(4);cmp();beep()});
+function cmp(){const a=S.A,b=S.B;if(!a&&!b){$('cmp').innerHTML='';return}const mx=Math.max(a?a.L:0,b?b.L:0),mv=Math.max(a&&a.V||0,b&&b.V||0);
+ const row=(o,l,c)=>o?`<tr><td style="color:${c}"><b>${l}</b> ${o.n}<br>${o.vs}</td><td>L ${fmt(o.L)}<div class="bar" style="width:${o.L/mx*100}%;background:${c}"></div>${o.V!=null?'V '+fmt(o.V)+'<div class="bar" style="width:'+(mv?o.V/mv*100:0)+'%;background:'+c+'"></div>':''}</td></tr>`:'';
+ $('cmp').innerHTML='<table>'+row(a,'A','#22D3EE')+row(b,'B','#FBBF24')+'</table>'+(a&&b&&a.V&&b.V?`<div>V(B)/V(A) = <b>${fmt(b.V/a.V)}×</b>; L(B)/L(A) = <b>${fmt(b.L/a.L)}×</b></div>`:'');concl()}
+function concl(){const c=calc(),n=Object.values(S.ok).filter(Boolean).length;$('cc').innerHTML=`Kamu menjelajah <b>${S.vis.size}</b> bangun (${[...S.vis].map(k=>M[k].n).join(', ')}). Terakhir: <b>${M[S.m].n}</b> (${vs()}) dengan luas ${fmt(c.L)} cm²${c.V!=null?' dan volume '+fmt(c.V)+' cm³':''}.${S.A&&S.B&&S.A.V&&S.B.V?` Perubahan A→B membuat volume ${fmt(S.B.V/S.A.V)}× dan luas ${fmt(S.B.L/S.A.L)}×.`:''} HOTS benar: <b>${n}/40</b>.`}
+$('rf').oninput=e=>{if(e.target.value.trim().length>=10)mark(5)};
+// ---- geometry
+const ring=(n,r,y)=>Array.from({length:n+1},(_,i)=>[r*Math.cos(2*PI*i/n),y,r*Math.sin(2*PI*i/n)]);
+const box=(w,h,d)=>{const x=w/2,z=d/2,y=h/2,b=[[-x,-y,-z],[x,-y,-z],[x,-y,z],[-x,-y,z],[-x,-y,-z]],t=b.map(p=>[p[0],y,p[2]]);return[b,t,...[0,1,2,3].map(i=>[b[i],t[i]])]};
+function geo(){const v=S.v;switch(S.m){case'kubus':return box(v.s,v.s,v.s);case'balok':return box(v.p,v.t,v.l);
+ case'prisma':{const b=ring(6,v.a,-v.t/2),t=ring(6,v.a,v.t/2);return[b,t,...[0,1,2,3,4,5].map(i=>[b[i],t[i]])]}
+ case'prismaseg':{const R=v.a/Math.sqrt(3),b=ring(3,R,-v.t/2),t=ring(3,R,v.t/2);return[b,t,...[0,1,2].map(i=>[b[i],t[i]])]}
+ case'limasseg':{const R=v.a/Math.sqrt(3),h=v.t/2,b=ring(3,R,-h);return[b,...[0,1,2].map(i=>[b[i],[0,h,0]])]}
+ case'limas':{const h=v.t/2,s=v.s/2,b=[[-s,-h,-s],[s,-h,-s],[s,-h,s],[-s,-h,s],[-s,-h,-s]];return[b,...[0,1,2,3].map(i=>[b[i],[0,h,0]])]}
+ case'tabung':return[ring(28,v.r,-v.t/2),ring(28,v.r,v.t/2),...[[v.r,0],[-v.r,0],[0,v.r],[0,-v.r]].map(p=>[[p[0],-v.t/2,p[1]],[p[0],v.t/2,p[1]]])];
+ case'kerucut':return[ring(28,v.r,-v.t/2),...[[v.r,0],[-v.r,0],[0,v.r],[0,-v.r]].map(p=>[[p[0],-v.t/2,p[1]],[0,v.t/2,0]])];
+ default:{const c=ring(40,v.r,0);return[c,c.map(p=>[p[0],p[2],0]),c.map(p=>[0,p[2],p[0]])]}}}
+const rc=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],cp=(cx,cy,r,n=40,a0=0,a1=2*PI)=>Array.from({length:n+1},(_,i)=>[cx+r*Math.cos(a0+(a1-a0)*i/n),cy+r*Math.sin(a0+(a1-a0)*i/n)]);
+function nets(){const v=S.v;switch(S.m){
+ case'kubus':return[[1,0],[0,1],[1,1],[2,1],[3,1],[1,2]].map(p=>rc(p[0]*v.s,p[1]*v.s,v.s,v.s));
+ case'balok':{const w=[v.p,v.l,v.p,v.l];let x=0;const o=w.map(a=>{const r=rc(x,0,a,v.t);x+=a;return r});return[...o,rc(0,-v.l,v.p,v.l),rc(0,v.t,v.p,v.l)]}
+ case'prisma':{const a=v.a,h=a*.866,o=[0,1,2,3,4,5].map(i=>rc(i*a,0,a,v.t)),cx=2.5*a;return[...o,cp(cx,-h,a,6,0,2*PI),cp(cx,v.t+h,a,6,0,2*PI)]}
+ case'limas':{const s=v.s,sl=Math.hypot(v.t,s/2);return[rc(0,0,s,s),[[0,0],[s,0],[s/2,-sl]],[[0,s],[s,s],[s/2,s+sl]],[[0,0],[0,s],[-sl,s/2]],[[s,0],[s,s],[s+sl,s/2]]]}
+ case'prismaseg':{const a=v.a,h=a*.866,o=[0,1,2].map(i=>rc(i*a,0,a,v.t));return[...o,[[a,0],[2*a,0],[1.5*a,-h]],[[a,v.t],[2*a,v.t],[1.5*a,v.t+h]]]}
+ case'limasseg':{const a=v.a,h=a*.866,sl=Math.hypot(v.t,a*Math.sqrt(3)/6),T=[[0,0],[a,0],[a/2,h]],G=[a/2,h/3];return[T,...[0,1,2].map(i=>{const P=T[i],Q=T[(i+1)%3],mx=(P[0]+Q[0])/2,my=(P[1]+Q[1])/2,nx=mx-G[0],ny=my-G[1],l=Math.hypot(nx,ny);return[P,Q,[mx+nx/l*sl,my+ny/l*sl]]})]}
+ case'tabung':{const W=2*PI*v.r;return[rc(0,0,W,v.t),cp(W/2,-v.r,v.r),cp(W/2,v.t+v.r,v.r)]}
+ case'kerucut':{const sl=Math.hypot(v.r,v.t),an=2*PI*v.r/sl,a0=PI/2-an/2;return[[[0,0],...cp(0,0,sl,40,a0,a0+an)],cp(0,sl+v.r,v.r)]}
+ default:return[]}}
+const cv=$('cv'),cx=cv.getContext('2d'),COL=['#22D3EE','#FBBF24','#34D399','#FB7185'];
+function lab(P){const m=S.m,L=(a,b)=>a.map((p,i)=>[b[i],p]);
+ if(m=='kubus'||m=='balok')return L([...P[0].slice(0,4),...P[1].slice(0,4)],'ABCDEFGH');
+ if(m=='prisma')return L([...P[0].slice(0,6),...P[1].slice(0,6)],'ABCDEFGHIJKL');
+ if(m=='prismaseg')return L([...P[0].slice(0,3),...P[1].slice(0,3)],'ABCDEF');
+ if(m=='limas')return L([...P[0].slice(0,4),P[1][1]],'ABCDT');
+ if(m=='limasseg')return L([...P[0].slice(0,3),P[1][1]],'ABCT');
+ if(m=='kerucut')return[['T',[0,S.v.t/2,0]],['P',[0,-S.v.t/2,0]]];
+ if(m=='tabung')return[['P',[0,-S.v.t/2,0]],['Q',[0,S.v.t/2,0]]];
+ return[['O',[0,0,0]]]}
+function draw3(c){const P=geo(),k=105/Math.max(...P.flat().flat().map(Math.abs)),ca=Math.cos(S.ang),sa=Math.sin(S.ang),T=.45,pr=p=>{const x=p[0]*ca+p[2]*sa,z=-p[0]*sa+p[2]*ca,y=p[1]*Math.cos(T)-z*Math.sin(T);return[320+k*x,145-k*y]};
+ c.lineWidth=2;c.strokeStyle='#22D3EE';c.fillStyle='rgba(34,211,238,.09)';c.shadowColor='#22D3EE';c.shadowBlur=6;P.forEach(l=>{c.beginPath();l.map(pr).forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));if(l.length>3)c.fill();c.stroke()});c.shadowBlur=0;mkDraw(c,P,pr);c.font='bold 14px system-ui';c.textAlign='center';lab(P).forEach(([ch,p])=>{const q=pr(p),dx=q[0]-320,dy=q[1]-145,d=Math.hypot(dx,dy)||1;c.fillStyle=S.mk.t?'#34D399':'#FBBF24';c.beginPath();c.arc(q[0],q[1],S.mk.t?6:3,0,7);c.fill();c.fillText(ch,q[0]+dx/d*13,q[1]+dy/d*13+5)})}
+function drawNet(c){const N=nets();c.textAlign='center';if(!N.length){c.fillStyle='#CBD5E1';c.font='16px system-ui';c.fillText('Bola tidak memiliki jaring-jaring datar',320,145);return}
+ const pts=N.flat(),x0=Math.min(...pts.map(p=>p[0])),x1=Math.max(...pts.map(p=>p[0])),y0=Math.min(...pts.map(p=>p[1])),y1=Math.max(...pts.map(p=>p[1])),sc=Math.min(560/(x1-x0),250/(y1-y0)),ox=320-(x0+x1)/2*sc,oy=145-(y0+y1)/2*sc;
+ N.forEach((l,i)=>{c.beginPath();l.forEach((p,j)=>j?c.lineTo(p[0]*sc+ox,p[1]*sc+oy):c.moveTo(p[0]*sc+ox,p[1]*sc+oy));c.closePath();c.fillStyle=COL[i%3]+'55';c.fill();c.strokeStyle=COL[i%3];c.lineWidth=2;c.stroke()})}
+function drawLing(c){const v=S.v,R=v.r/20*125,X=320,Y=145,d=v.d*PI/180;c.fillStyle='rgba(34,211,238,.15)';c.strokeStyle='#22D3EE';c.lineWidth=2;c.beginPath();c.arc(X,Y,R,0,2*PI);c.fill();c.stroke();
+ c.fillStyle='rgba(251,191,36,.55)';c.strokeStyle='#FBBF24';c.beginPath();c.moveTo(X,Y);c.arc(X,Y,R,-d,0);c.closePath();c.fill();c.stroke();c.lineWidth=4;c.beginPath();c.arc(X,Y,R,-d,0);c.stroke();c.fillStyle='#FBBF24';c.font='bold 14px system-ui';c.textAlign='center';c.fillText('O',X-10,Y+16);c.fillText('A',X+R+12,Y+5);c.fillText('B',X+(R+12)*Math.cos(-d),Y+(R+12)*Math.sin(-d)+5);
+ c.fillStyle='#F8FAFC';c.font='14px system-ui';c.textAlign='center';c.fillText('θ = '+v.d+'°  (juring kuning, busur tebal)',X,Y+R+18>285?285:Y+R+18)}
+function draw(){cx.clearRect(0,0,640,290);cx.save();cx.translate(320,145);cx.scale(S.z,S.z);cx.translate(-320,-145);if(S.m=='ling')drawLing(cx);else{if(S.f<.99){cx.globalAlpha=1-S.f;draw3(cx)}if(S.f>.01){cx.globalAlpha=S.f;drawNet(cx)}cx.globalAlpha=1}cx.restore()}
+function loop(){if(!S.drag)S.ang+=.008;S.f+=(S.ft-S.f)*.08;draw();if(S.cmb)drawCmb();requestAnimationFrame(loop)}
+let lx;cv.onpointerdown=e=>{S.drag=1;lx=e.clientX;cv.setPointerCapture(e.pointerId);mark(2)};cv.onpointermove=e=>{if(S.drag){S.ang+=(e.clientX-lx)*.012;lx=e.clientX}};cv.onpointerup=()=>S.drag=0;
+// ---- HOTS
+const Q0=[
+['Kotak kado prisma segi enam beraturan, sisi 6 cm, tinggi 10 cm. Kertas kado hanya menutup sisi tegak. Berapa luas kertas minimum (cm²)? Bandingkan dengan luas permukaan prisma.',360,.5,'cm²','Hitung hanya selimut: keliling alas × tinggi.',['Keliling alas = 6 × 6 = 36 cm','Luas sisi tegak = 36 × 10 = 360 cm²','Luas alas = 3√3/2 × 6² ≈ 93,53 cm²','Luas permukaan ≈ 360 + 2(93,53) ≈ 547,06 cm²','Kesimpulan: 360 ≠ 547,06; selisih alas & tutup ≈ 187,06 cm²'],'Luas permukaan prisma = selimut + 2 × luas alas.'],
+['Kolam balok 8 m × 5 m × 2 m dilapisi keramik pada dinding dalam dan dasar. 1 dus = 1,5 m². Berapa dus minimal?',62,0,'dus','Kolam tidak punya tutup: dasar + 4 dinding.',['Luas dasar = 8 × 5 = 40 m²','Luas 4 dinding = 2(8×2) + 2(5×2) = 52 m²','Total = 92 m²','Dus = ⌈92 / 1,5⌉ = 62 dus'],'Pembulatan ke atas untuk kebutuhan bahan.'],
+['Limas persegi sisi alas 10 cm, tinggi 12 cm, dibanding kubus rusuk 10 cm. Berapa selisih volumenya (cm³)?',600,.5,'cm³','Volume limas = ⅓ × luas alas × tinggi.',['V limas = ⅓ × 100 × 12 = 400 cm³','V kubus = 10³ = 1000 cm³','Selisih = 600 cm³; kubus 2,5× lebih besar'],'Volume limas = ⅓ volume prisma beralas & bertinggi sama.'],
+['Taman juring r = 14 m, sudut 90°. Pagar mengelilingi taman (busur + 2 jari-jari). Berapa panjang pagar (m)? (π = 22/7)',50,.1,'m','Panjang busur = θ/360 × 2πr.',['Busur = ¼ × 2 × 22/7 × 14 = 22 m','Pagar = 22 + 28 = 50 m','Luas juring = ¼ × 22/7 × 196 = 154 m²'],'Busur dan juring sebanding dengan sudut pusat.'],
+['Tabung tanpa tutup r = 7 cm, t = 15 cm. Berapa luas permukaannya (cm²)? (π = 22/7)',814,.5,'cm²','Selimut + 1 alas.',['Selimut = 2 × 22/7 × 7 × 15 = 660 cm²','Alas = 154 cm²','Tanpa tutup = 814 cm²; dengan tutup = 968 cm²; tambahan 154 cm²'],'Luas tabung = 2πr(r+t); tanpa tutup = 2πrt + πr².'],
+['Kerucut r = 6 cm, t = 8 cm; bola r = 6 cm. Berapa volume kerucut (cm³)? (π = 3,14)',301.44,.5,'cm³','V kerucut = ⅓πr²t.',['V kerucut = ⅓ × 3,14 × 36 × 8 ≈ 301,44 cm³','V bola = 4/3 × 3,14 × 216 ≈ 904,32 cm³','Perbandingan = 1 : 3'],'Kerucut : bola (r = t/…) menunjukkan hubungan ⅓ dan 4/3.'],
+['Jari-jari tabung diperbesar 2×, tinggi tetap. Volume menjadi berapa kali semula?',4,0,'kali','Jari-jari dikuadratkan pada volume.',['V baru = π(2r)²t = 4πr²t → 4×','Luas selimut baru = 2π(2r)t → 2×','Volume kuadratik, luas selimut linear'],'Faktor skala k: panjang ×k, luas ×k², volume ×k³.'],
+['Tabung r = 7 cm, t = 10 cm + kerucut r = 7 cm, t = 24 cm di atasnya. Berapa total luas permukaan tanpa alas bawah (cm²)? (π = 22/7)',1144,1,'cm²','Cari garis pelukis dulu: s = √(r²+t²).',['V tabung = 1540; V kerucut = 1232; total 2772 cm³','s = √(7²+24²) = 25 cm','Selimut kerucut = 550; selimut tabung = 440; alas = 154','Total luas = 1144 cm²'],'Pada gabungan bangun, sisi yang menempel tidak dihitung.'],
+['Kubus rusuk 20 cm berisi air penuh. Bola r = 5 cm dimasukkan. Berapa volume air yang tumpah (cm³)? (π = 3,14)',523.33,.5,'cm³','Air tumpah = volume bola.',['V kubus = 8000 cm³','V bola ≈ 523,33 cm³ → air tumpah','Sisa = 7476,67 cm³','Persentase terisi ≈ 93,46%'],'Volume benda tercelup = volume air yang terdesak.'],
+['Tandon tabung diameter 1 m, tinggi 2 m. Keluarga 5 orang butuh 20 L/orang/hari. Berapa hari tandon cukup? (π = 3,14)',15.7,.1,'hari','1 m³ = 1000 L.',['r = 0,5 m; V = 3,14 × 0,25 × 2 = 1,57 m³ = 1570 L','Kebutuhan harian = 100 L','Ketahanan = 15,7 hari → ± 15 hari','Refleksi: agar 30 hari, tinggi minimal ≈ 4 m']  ,'Konversi satuan volume: 1 m³ = 1000 L.']];
+function showQ(i){S.cur=i;const q=Q[i];$('qn').innerHTML=Q.map((_,j)=>`<button class="${S.ok[j]?'ok':''} ${j==i?'on':''}" data-j="${j}">${S.ok[j]?'★':j+1}</button>`).join('');$('qn').querySelectorAll('button').forEach(b=>b.onclick=()=>showQ(+b.dataset.j));
+ $('q').innerHTML='<b>Soal '+(i+1)+':</b> '+q[0];$('un').textContent=q[3];$('ans').value='';$('fb').textContent='';$('st').innerHTML=q[5].map(s=>'<li>'+s+'</li>').join('');$('kc').textContent='🧭 '+q[6]}
+$('hint').onclick=()=>$('fb').textContent='📝 '+Q[S.cur][4];
+$('chk').onclick=()=>{const i=S.cur,q=Q[i],val=parseFloat($('ans').value.replace(',','.'));if(isNaN(val)){$('fb').textContent='Masukkan angka dulu.';return}
+ S.tr[i]=(S.tr[i]||0)+1;if(Math.abs(val-q[1])<=q[2]){const st=Math.max(1,4-S.tr[i]);if(!S.ok[i]){S.score+=st;S.ok[i]=1}$('fb').innerHTML='<span style="color:#34D399">✅ Benar! '+'★'.repeat(st)+'</span> Buka langkah pengerjaan untuk mencocokkan.';beep(990);if(Object.keys(S.ok).length>=5)badge('jh')}
+ else{$('fb').innerHTML='<span style="color:#FB7185">❌ Belum tepat. Coba lagi atau lihat petunjuk.</span>';beep(200)}const m=$('fb').innerHTML;showQ(i);$('fb').innerHTML=m;ui()};
+// ---- 40 soal (10 tipe x 4 variasi)
+const E=(t,a,o,u,h,s)=>[t,a,o,u,h,s];
+const X=[
+[E('Kotak kado prisma segi enam beraturan, sisi alas 4 cm, tinggi 9 cm. Berapa luas kertas kado minimum yang menutup sisi tegak (cm²)?',216,.5,'cm²','Keliling alas × tinggi.',['Keliling alas = 6 × 4 = 24 cm','Luas sisi tegak = 24 × 9 = 216 cm²']),E('Prisma segitiga siku-siku, sisi alas 3, 4, 5 cm dan tinggi prisma 10 cm. Berapa luas seluruh sisi tegaknya (cm²)?',120,.5,'cm²','Jumlahkan ketiga sisi alas dulu.',['Keliling alas = 3 + 4 + 5 = 12 cm','Luas sisi tegak = 12 × 10 = 120 cm²']),E('Kerangka balok 10 cm × 6 cm × 4 cm dibuat dari kawat. Berapa panjang kawat minimum (cm)?',80,.5,'cm','Balok punya 12 rusuk: 4 panjang, 4 lebar, 4 tinggi.',['Panjang kawat = 4(p + l + t)','= 4(10 + 6 + 4) = 80 cm'])],
+[E('Akuarium balok 60 cm × 40 cm × 30 cm tanpa tutup. Berapa luas kaca yang dibutuhkan (cm²)?',8400,.5,'cm²','Dasar + 4 dinding.',['Dasar = 60 × 40 = 2400 cm²','Dinding = 2(60×30) + 2(40×30) = 6000 cm²','Total = 8400 cm²']),E('Atap limas persegi, sisi alas 6 m dan tinggi sisi tegak 5 m. Berapa luas atap (m²)?',60,.5,'m²','Atap hanya 4 segitiga, tanpa alas.',['Luas 1 segitiga = ½ × 6 × 5 = 15 m²','Luas atap = 4 × 15 = 60 m²']),E('Kubus rusuk 12 cm dicat pada semua sisi kecuali alas. Berapa luas yang dicat (cm²)?',720,.5,'cm²','Ada 5 sisi yang dicat.',['Luas 1 sisi = 12² = 144 cm²','Luas dicat = 5 × 144 = 720 cm²'])],
+[E('Bak mandi balok 1,2 m × 0,8 m × 0,5 m terisi penuh. Berapa liter airnya?',480,.5,'L','1 m³ = 1000 L.',['V = 1,2 × 0,8 × 0,5 = 0,48 m³','= 480 L']),E('Prisma segitiga: alas segitiga dengan alas 6 cm dan tinggi 4 cm, tinggi prisma 10 cm. Berapa volumenya (cm³)?',120,.5,'cm³','Volume = luas alas × tinggi prisma.',['Luas alas = ½ × 6 × 4 = 12 cm²','V = 12 × 10 = 120 cm³']),E('Limas alas persegi sisi 9 cm, tinggi 10 cm. Berapa volumenya (cm³)?',270,.5,'cm³','⅓ × luas alas × tinggi.',['Luas alas = 81 cm²','V = ⅓ × 81 × 10 = 270 cm³'])],
+[E('Juring lingkaran r = 21 cm, sudut 60°. Berapa panjang busurnya (cm)? (π = 22/7)',22,.1,'cm','θ/360 × 2πr.',['Keliling = 2 × 22/7 × 21 = 132 cm','Busur = 60/360 × 132 = 22 cm']),E('Juring r = 10 cm, sudut 72°. Berapa luas juringnya (cm²)? (π = 3,14)',62.8,.1,'cm²','θ/360 × πr².',['Luas lingkaran = 3,14 × 100 = 314 cm²','Juring = 72/360 × 314 = 62,8 cm²']),E('Juring bersudut 120° memiliki panjang busur 44 cm. Berapa jari-jarinya (cm)? (π = 22/7)',21,.1,'cm','Balik rumus busur untuk mencari r.',['44 = 120/360 × 2 × 22/7 × r','44 = (44/21) r','r = 21 cm'])],
+[E('Kerucut r = 7 cm, garis pelukis s = 25 cm. Berapa luas permukaannya (cm²)? (π = 22/7)',704,.5,'cm²','πr(r + s).',['L = 22/7 × 7 × (7 + 25)','= 22 × 32 = 704 cm²']),E('Bola berjari-jari 21 cm. Berapa luas permukaannya (cm²)? (π = 22/7)',5544,.5,'cm²','4πr².',['L = 4 × 22/7 × 441','= 4 × 22 × 63 = 5544 cm²']),E('Tabung tertutup r = 10 cm, t = 20 cm. Berapa luas permukaannya (cm²)? (π = 3,14)',1884,.5,'cm²','2πr(r + t).',['L = 2 × 3,14 × 10 × 30','= 1884 cm²'])],
+[E('Tabung r = 14 cm, t = 10 cm. Berapa volumenya (cm³)? (π = 22/7)',6160,.5,'cm³','πr²t.',['V = 22/7 × 196 × 10','= 6160 cm³']),E('Bola berjari-jari 3 cm. Berapa volumenya (cm³)? (π = 3,14)',113.04,.1,'cm³','4/3 πr³.',['V = 4/3 × 3,14 × 27','= 113,04 cm³']),E('Kerucut r = 7 cm, t = 15 cm. Berapa volumenya (cm³)? (π = 22/7)',770,.5,'cm³','⅓πr²t.',['V = ⅓ × 22/7 × 49 × 15','= 22 × 7 × 5 = 770 cm³'])],
+[E('Rusuk kubus diperbesar 3×. Volume menjadi berapa kali semula?',27,0,'kali','Volume berbanding pangkat tiga.',['V baru = (3s)³ = 27s³','Jadi 27×']),E('Jari-jari bola diperkecil menjadi setengahnya. Luas permukaan menjadi berapa kali semula? (tulis desimal)',.25,.001,'kali','Luas berbanding kuadrat.',['L baru = 4π(r/2)² = πr²','= ¼ × 4πr², jadi 0,25×']),E('Jari-jari dan tinggi tabung sama-sama diperbesar 2×. Volume menjadi berapa kali semula?',8,0,'kali','r dikuadratkan, t linear.',['V baru = π(2r)²(2t) = 8πr²t','Jadi 8×'])],
+[E('Tabung r = 7 cm, t = 10 cm ditutup setengah bola r = 7 cm di atasnya. Berapa total volume (cm³)? (π = 22/7)',2258.67,.1,'cm³','V tabung + ½ V bola.',['V tabung = 1540 cm³','V bola = 4/3 × 22/7 × 343 = 1437,33; setengahnya 718,67','Total = 2258,67 cm³']),E('Balok 10 × 10 × 8 cm ditutup limas persegi beralas 10 cm dan tinggi 6 cm. Berapa total volume (cm³)?',1000,.5,'cm³','Jumlahkan volume balok dan limas.',['V balok = 800 cm³','V limas = ⅓ × 100 × 6 = 200 cm³','Total = 1000 cm³']),E('Tabung r = 3 cm, t = 5 cm dengan kerucut r = 3 cm, t = 4 cm di atasnya. Berapa total volume (cm³)? (π = 3,14)',178.98,.1,'cm³','V tabung + V kerucut.',['V tabung = 3,14 × 9 × 5 = 141,3','V kerucut = ⅓ × 3,14 × 9 × 4 = 37,68','Total = 178,98 cm³'])],
+[E('Kubus rusuk 10 cm berisi air penuh. Bola r = 2 cm dimasukkan. Berapa volume air yang tumpah (cm³)? (π = 3,14)',33.49,.1,'cm³','Air tumpah = volume bola.',['V bola = 4/3 × 3,14 × 8','≈ 33,49 cm³']),E('Karton persegi 30 cm dipotong persegi 5 cm di tiap sudut lalu dilipat menjadi kotak tanpa tutup. Berapa volume kotak (cm³)?',2000,.5,'cm³','Alas kotak = 30 − 2×5.',['Alas = 20 × 20 cm','V = 20 × 20 × 5 = 2000 cm³']),E('Kawat 120 cm dibuat kerangka kubus tanpa sisa. Berapa volume kubus (cm³)?',1000,.5,'cm³','Kubus punya 12 rusuk sama panjang.',['Rusuk = 120 : 12 = 10 cm','V = 10³ = 1000 cm³'])],
+[E('Bak air balok 1 m × 0,5 m × 0,8 m terisi penuh. Keluarga memakai 40 L/hari. Berapa hari air cukup?',10,0,'hari','Ubah m³ ke liter.',['V = 0,4 m³ = 400 L','Hari = 400 : 40 = 10 hari']),E('Kaleng susu tabung r = 7 cm, t = 10 cm. Berapa kaleng untuk mengisi 9,24 L (1 L = 1000 cm³)? (π = 22/7)',6,0,'kaleng','Cari volume 1 kaleng dulu.',['V kaleng = 22/7 × 49 × 10 = 1540 cm³','9,24 L = 9240 cm³','Kaleng = 9240 : 1540 = 6']),E('Tumpukan pasir berbentuk kerucut r = 1 m, t = 1,5 m. Truk memuat 0,5 m³. Berapa truk minimal? (π = 3,14)',4,0,'truk','Hitung volume lalu bulatkan ke atas.',['V = ⅓ × 3,14 × 1 × 1,5 = 1,57 m³','1,57 : 0,5 = 3,14','Dibulatkan ke atas: 4 truk'])]];
+const V=Q0.map((q,i)=>[q,...X[i].map(e=>[...e,q[6]])]);
+S.vr=V.map(()=>Math.floor(Math.random()*4));
+const cq=()=>V[S.cur][S.vr[S.cur]];
+function showQ(i){S.cur=i;const q=cq();$('qn').innerHTML=V.map((_,j)=>`<button class="${Object.keys(S.ok).some(k=>k.startsWith(j+'_'))?'ok':''} ${j==i?'on':''}" data-j="${j}">${Object.keys(S.ok).some(k=>k.startsWith(j+'_'))?'★':j+1}</button>`).join('');$('qn').querySelectorAll('button').forEach(b=>b.onclick=()=>showQ(+b.dataset.j));
+ $('q').innerHTML='<b>Soal '+(i+1)+'</b> <span style="color:#FBBF24">(variasi '+(S.vr[i]+1)+'/4)</span><b>:</b> '+q[0];$('un').textContent=q[3];$('ans').value='';$('fb').textContent='';$('st').innerHTML=q[5].map(s=>'<li>'+s+'</li>').join('');$('kc').textContent='🧭 '+q[6]}
+$('hint').onclick=()=>$('fb').textContent='📝 '+cq()[4];
+$('swp').onclick=()=>{S.vr[S.cur]=(S.vr[S.cur]+1+Math.floor(Math.random()*3))%4;showQ(S.cur);beep(600)};
+$('chk').onclick=()=>{const i=S.cur,q=cq(),id=i+'_'+S.vr[i],val=parseFloat($('ans').value.replace(',','.'));if(isNaN(val)){$('fb').textContent='Masukkan angka dulu.';return}
+ S.tr[id]=(S.tr[id]||0)+1;let m;if(Math.abs(val-q[1])<=q[2]){const st=Math.max(1,4-S.tr[id]);if(!S.ok[id]){S.score+=st;S.ok[id]=1}m='<span style="color:#34D399">✅ Benar! '+'★'.repeat(st)+'</span> Klik 🎲 Ganti Soal untuk variasi lain.';beep(990);if(Object.keys(S.ok).length>=5)badge('jh')}else{m='<span style="color:#FB7185">❌ Belum tepat. Coba lagi atau lihat petunjuk.</span>';beep(200)}
+ showQ(i);$('fb').innerHTML=m;ui()};
+// ---- rumus komponen & air
+const G=(v,l)=>[['Jika volume (V) diketahui',v],['Jika luas permukaan (L) diketahui',l]];
+const F={kubus:G(['s = ∛V','L = 6·∛(V²)'],['s = √(L/6)','V = s³']),
+balok:G(['t = V / (p·l)','l = V / (p·t)','p = V / (l·t)'],['t = (L − 2pl) / (2(p+l))','p = (L − 2lt) / (2(l+t))']),
+prisma:G(['t = V / ((3√3/2)a²)','a = √(V / ((3√3/2)·t))'],['t = (L − 3√3·a²) / (6a)']),
+prismaseg:G(['t = V / ((√3/4)a²)','a = √(4V / (√3·t))'],['t = (L − (√3/2)a²) / (3a)']),
+limas:G(['t = 3V / s²','s = √(3V / t)'],['ℓ (tinggi sisi tegak) = (L − s²) / (2s)','t = √(ℓ² − (s/2)²)']),
+limasseg:G(['t = 3V / ((√3/4)a²)','a = √(12V / (√3·t))'],['ℓ = (L − (√3/4)a²) / (1,5a)','t = √(ℓ² − (a√3/6)²)']),
+tabung:G(['t = V / (πr²)','r = √(V / (πt))'],['t = L/(2πr) − r','r = [−t + √(t² + 2L/π)] / 2']),
+kerucut:G(['t = 3V / (πr²)','r = √(3V / (πt))'],['s = L/(πr) − r','t = √(s² − r²)','r = √(s² − t²)']),
+bola:G(['r = ∛(3V / 4π)','L = 4π·r²'],['r = √(L / 4π)','V = ⅓·L·r']),
+ling:[['Jika luas (L) diketahui',['r = √(L/π)']],['Jika keliling (K) diketahui',['r = K / 2π']],['Jika panjang busur (b) diketahui',['θ = 360·b / (2πr)','r = 360·b / (2πθ)']],['Jika luas juring (J) diketahui',['θ = 360·J / (πr²)','r = √(360·J / (πθ))']]]};
+function inv(){$('io').innerHTML=F[S.m].map(([t,l])=>`<div style="color:#FBBF24"><b>${t}</b></div>`+l.map(x=>'<div>'+x+'</div>').join('')).join('')}
+function setIm(){$('wc').style.display=S.m=='ling'?'none':'block';S.nv=0;nl();mk()}
+BADGES.db='Detektif Diagonal';S.mk={r:0,t:0,dr:0,ds:0};S.seen=new Set();
+const RS={kubus:12,balok:12,prisma:18,prismaseg:9,limas:8,limasseg:6,tabung:2,kerucut:1,bola:0},VS={kubus:8,balok:8,prisma:12,prismaseg:6,limas:5,limasseg:4,tabung:0,kerucut:1,bola:0};
+function dg(m,P){const B=P[0],T=P[1],n=B.length-1,A='ABCDEFGHIJKL',nm=(a,i)=>A[(a?n:0)+i%n],q=(a,i,b,j)=>[(a?T:B)[i],(b?T:B)[j],nm(a,i)+nm(b,j)],R=[],D=[];
+ if(['kubus','balok','prisma','prismaseg'].includes(m)){
+  if(n==4){for(let i=0;i<4;i++){R.push(q(0,i,1,(i+2)%4));D.push(q(0,i,1,i+1),q(0,i+1,1,i))}D.push(q(0,0,0,2),q(0,1,0,3),q(1,0,1,2),q(1,1,1,3))}
+  else if(n==6){for(let i=0;i<6;i++)D.push(q(0,i,1,i+1));[2,3,4].forEach(j=>{R.push(q(0,0,1,j));D.push(q(0,0,0,j),q(1,0,1,j))})}
+  else for(let i=0;i<3;i++)D.push(q(0,i,1,i+1))}
+ else if(m=='limas')D.push(q(0,0,0,2),q(0,1,0,3));
+ return{R,D}}
+function mkDraw(c,P,pr){const m=S.m,k=S.mk;
+ if(k.r&&m!='bola'){c.strokeStyle='#FBBF24';c.lineWidth=4;(m=='tabung'?[P[0],P[1]]:m=='kerucut'?[P[0]]:P).forEach(l=>{c.beginPath();l.map(pr).forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke()})}
+ const d=dg(m,P),ln=(a,col,dash)=>{c.strokeStyle=col;c.lineWidth=2.5;c.setLineDash(dash);a.forEach(([p,q])=>{const u=pr(p),w=pr(q);c.beginPath();c.moveTo(u[0],u[1]);c.lineTo(w[0],w[1]);c.stroke()});c.setLineDash([])};
+ if(k.ds)ln(d.D,'#FB7185',[6,4]);if(k.dr)ln(d.R,'#C084FC',[])}
+function mk(){if(S.m=='ling')return;document.querySelectorAll('#wc button').forEach(b=>b.classList.toggle('on',!!S.mk[b.dataset.k]));
+ const m=S.m,P=geo(),d=dg(m,P),nmz=a=>a.length?a.map(x=>x[2]).join(', '):'tidak ada',lt=m=='kerucut'?'T':m=='tabung'||m=='bola'?'':lab(P).map(x=>x[0]).join(', ');let h='';
+ if(S.mk.r)h+=`<div style="color:#FBBF24"><b>Rusuk:</b> ${RS[m]}${m=='tabung'||m=='kerucut'?' (lengkung)':''}</div>`;
+ if(S.mk.t)h+=`<div style="color:#34D399"><b>Titik sudut:</b> ${VS[m]}${lt?' ('+lt+')':''}</div>`;
+ if(S.mk.dr)h+=`<div style="color:#C084FC"><b>Diagonal ruang:</b> ${nmz(d.R)}${m=='prisma'?' (dari titik A)':''}</div>`;
+ if(S.mk.ds)h+=`<div style="color:#FB7185"><b>Diagonal sisi:</b> ${nmz(d.D)}${m=='prisma'?' (contoh)':''}</div>`;
+ $('wl').innerHTML=h}
+document.querySelectorAll('#wc button').forEach(b=>b.onclick=()=>{const k=b.dataset.k;S.mk[k]=!S.mk[k];if(S.mk[k]){S.seen.add(k);mark(2);setTimeout(()=>mark(3),1500);beep(600);if(S.seen.size==4)badge('db')}mk()});
+inv();
+// ---- gabungan bangun
+M.setbola={n:'Setengah bola',v:{r:['Jari-jari r',1,15,7]}};BADGES.gb='Insinyur Gabungan';
+const CK=['kubus','balok','prisma','prismaseg','limas','limasseg','tabung','kerucut','bola','setbola'],SUB=['₁','₂','₃'],cv2=$('cv2');
+const FC={kubus:['s²','s²'],balok:['p·l','p·l'],prisma:['(3√3/2)a²','(3√3/2)a²'],prismaseg:['(√3/4)a²','(√3/4)a²'],limas:['s²','puncak = 0'],limasseg:['(√3/4)a²','puncak = 0'],tabung:['πr²','πr²'],kerucut:['πr²','puncak = 0'],bola:['titik = 0','titik = 0'],setbola:['πr²','kubah = 0']};
+const fac=(m,v)=>{const A=Math.sqrt(3)/4*(v.a||0)**2,C=PI*(v.r||0)**2;return{kubus:[v.s*v.s,v.s*v.s],balok:[v.p*v.l,v.p*v.l],prisma:[6*A,6*A],prismaseg:[A,A],limas:[v.s*v.s,0],limasseg:[A,0],tabung:[C,C],kerucut:[C,0],bola:[0,0],setbola:[C,0]}[m]};
+function calcFor(m,v){if(m=='setbola')return{L:3*PI*v.r*v.r,V:2/3*PI*v.r**3};const a=S.m,b=S.v;S.m=m;S.v=v;const c=calc();S.m=a;S.v=b;return c}
+const FM=m=>m=='setbola'?['3πr² (2πr² lengkung + πr² alas)','⅔πr³']:[M[m].r[0],M[m].r[1]];
+const defv=m=>{const o={};for(const k in M[m].v)o[k]=M[m].v[k][3];return o};
+S.slots=[{m:'tabung',v:{r:7,t:10}},{m:'setbola',v:{r:7}},null];
+function geoFor(m,v){if(m=='setbola'){const r=v.r,ar=f=>Array.from({length:13},(_,i)=>{const t=PI/2*i/12;return f(r*Math.cos(t),r*Math.sin(t))});return{H:r,P:[ring(24,r,0),ar((x,y)=>[x,y,0]),ar((x,y)=>[-x,y,0]),ar((x,y)=>[0,y,x]),ar((x,y)=>[0,y,-x])]}}
+ const a=S.m,b=S.v;S.m=m;S.v=v;const P=geo();S.m=a;S.v=b;const H=m=='kubus'?v.s:m=='bola'?2*v.r:v.t;return{H,P:P.map(l=>l.map(q=>[q[0],q[1]+H/2,q[2]]))}}
+function drawCmb(){const c=cv2.getContext('2d');c.clearRect(0,0,480,190);const Q=[];let y0=0;S.slots.forEach((s,i)=>{if(!s)return;const g=geoFor(s.m,s.v);Q.push({i,P:g.P.map(l=>l.map(q=>[q[0],q[1]+y0,q[2]]))});y0+=g.H});if(!Q.length)return;
+ const h=y0/2,k=82/Math.max(...Q.flatMap(o=>o.P.flat()).map(q=>Math.max(Math.abs(q[0]),Math.abs(q[1]-h),Math.abs(q[2])))),ca=Math.cos(S.ang),sa=Math.sin(S.ang),T=.45,pr=p=>{const x=p[0]*ca+p[2]*sa,z=-p[0]*sa+p[2]*ca,y=(p[1]-h)*Math.cos(T)-z*Math.sin(T);return[240+k*x,95-k*y]};
+ c.lineWidth=2;Q.forEach(o=>{c.strokeStyle=COL[o.i];c.fillStyle=COL[o.i]+'22';o.P.forEach(l=>{c.beginPath();l.map(pr).forEach((q,j)=>j?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));if(l.length>3)c.fill();c.stroke()})})}
+function cmbBuild(){$('cs').innerHTML=[0,1,2].map(i=>{const s=S.slots[i];return `<div class="sc"><b style="color:${COL[i]}">Bangun ${i+1}${i==0?' (bawah)':i==2?' (atas)':''}</b><select data-i="${i}"><option value="">— kosong —</option>${CK.map(k=>`<option value="${k}" ${s&&s.m==k?'selected':''}>${M[k].n}</option>`).join('')}</select>${s?Object.entries(M[s.m].v).map(([k,a])=>`<div class="sl"><label>${a[0]}<b>${s.v[k]}</b></label><input type="range" data-i="${i}" data-k="${k}" min="${a[1]}" max="${a[2]}" value="${s.v[k]}"></div>`).join(''):''}</div>`}).join('');
+ $('cs').querySelectorAll('select').forEach(e=>e.onchange=()=>{const i=+e.dataset.i;S.slots[i]=e.value?{m:e.value,v:defv(e.value)}:null;cmbBuild()});
+ $('cs').querySelectorAll('input').forEach(e=>e.oninput=()=>{S.slots[+e.dataset.i].v[e.dataset.k]=+e.value;e.parentNode.querySelector('b').textContent=e.value;cmbInfo()});cmbInfo()}
+function cmbInfo(){const P=[];S.slots.forEach((s,i)=>{if(s){const c=calcFor(s.m,s.v);P.push({i,m:s.m,v:s.v,L:c.L,V:c.V,f:fac(s.m,s.v)})}});
+ let h='<div style="color:#CBD5E1">Bangun ditumpuk dari bawah ke atas. Bidang yang saling menempel tidak dihitung sebagai permukaan luar.</div>';
+ if(P.length<2){$('ci').innerHTML=h+'<div style="margin-top:8px;color:#FBBF24">Pilih minimal 2 bangun untuk melihat rumus gabungan.</div>';return}
+ if(!S.bd.has('gb'))badge('gb');
+ h+='<h3 style="margin-top:8px">Rumus gabungan</h3><div class="fm">V = '+P.map(p=>'V'+SUB[p.i]).join(' + ')+'</div><div class="fm">L = '+P.map(p=>'L'+SUB[p.i]).join(' + ')+' − 2·(luas bidang sentuh)</div><h3 style="margin-top:8px">Tiap bangun</h3>';
+ h+=P.map(p=>`<div style="margin-top:4px"><b style="color:${COL[p.i]}">Bangun ${p.i+1}: ${M[p.m].n}</b> (${Object.keys(M[p.m].v).map(k=>k+'='+p.v[k]).join(', ')})<div class="fm">V${SUB[p.i]} = ${FM(p.m)[1]} = ${fmt(p.V)} cm³</div><div class="fm">L${SUB[p.i]} = ${FM(p.m)[0]} = ${fmt(p.L)} cm²</div></div>`).join('');
+ h+='<h3 style="margin-top:8px">Bidang sentuh</h3>';let sc=0;
+ for(let j=0;j<P.length-1;j++){const a=P[j],b=P[j+1],t=a.f[1],u=b.f[0],ct=Math.min(t,u);sc+=ct;h+=`<div class="fm">${a.i+1}–${b.i+1}: min(atas ${a.i+1}, alas ${b.i+1}) = min(${FC[a.m][1]}, ${FC[b.m][0]}) = min(${fmt(t)}; ${fmt(u)}) = ${fmt(ct)} cm²</div>`}
+ const V=P.reduce((x,p)=>x+p.V,0),SL=P.reduce((x,p)=>x+p.L,0);
+ h+=`<h3 style="margin-top:8px">Hasil gabungan</h3><div>V = <b>${fmt(V)} cm³</b> (${fmt(V/1000)} L)</div><div>L = ${fmt(SL)} − 2 × ${fmt(sc)} = <b>${fmt(SL-2*sc)} cm²</b></div>`;$('ci').innerHTML=h}
+const bc=document.createElement('button');bc.textContent='🧩 Gabungkan Bangun';bc.style.cssText='background:rgba(251,191,36,.2);border-color:#FBBF24;margin-top:4px';$('left').appendChild(bc);
+bc.onclick=()=>{S.cmb=1;$('cmb').style.display='grid';cmbBuild();beep(700)};$('cx').onclick=()=>{S.cmb=0;$('cmb').style.display='none'};
+cv2.onpointerdown=e=>{S.drag=1;lx=e.clientX;cv2.setPointerCapture(e.pointerId)};cv2.onpointermove=e=>{if(S.drag){S.ang+=(e.clientX-lx)*.012;lx=e.clientX}};cv2.onpointerup=()=>S.drag=0;
+cv2.style.cssText='background:rgba(5,13,31,.4);border-radius:10px;touch-action:none;cursor:grab';
+// ---- jaring-jaring beragam & zoom
+S.z=1;S.nv=0;
+const CN=[["1-4-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[2,1,0,2],[1,2,1,0],[3,1,1,2]]],["1-4-1",[[0,1,0,1],[1,1,2,1],[1,2,2,0],[1,0,2,0],[2,2,1,0],[1,3,2,1]]],["1-4-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[2,1,0,2],[3,1,1,2],[2,2,0,1]]],["1-4-1",[[0,1,0,1],[1,1,2,1],[2,1,0,1],[1,2,2,0],[1,0,2,0],[1,3,2,1]]],["1-4-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[0,2,0,1],[2,1,0,2],[3,1,1,2]]],["1-4-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[2,1,0,2],[3,1,1,2],[3,2,1,0]]],["2-3-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[1,2,1,0],[1,3,1,2],[2,3,0,2]]],["2-3-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[1,2,1,0],[2,2,2,0],[1,3,1,2]]],["2-3-1",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[2,1,0,2],[1,2,1,0],[1,3,1,2]]],["2-2-2",[[0,0,0,1],[0,1,0,2],[1,1,1,2],[1,2,1,0],[2,2,2,0],[2,3,2,1]]],["3-3",[[0,0,0,1],[0,1,0,2],[0,2,0,1],[1,2,2,1],[1,3,2,0],[1,4,2,1]]]];
+const NVN={kubus:CN.map((o,i)=>'Pola '+o[0]+' (#'+(i+1)+')'),balok:CN.map((o,i)=>'Pola '+o[0]+' (#'+(i+1)+')'),prisma:['Alas di sisi tegak ke-3','Alas di ujung berlawanan','Kedua alas di atas'],prismaseg:['Alas di tengah','Alas di ujung berlawanan','Kedua alas di atas'],limas:['Silang','Kipas (persegi di tengah)','Kipas (persegi di ujung)'],limasseg:['Silang','Kipas (alas di tengah)','Kipas (alas di ujung)'],tabung:['Lingkaran di tengah selimut','Lingkaran di ujung berseberangan','Kedua lingkaran di atas'],kerucut:['Lingkaran di tengah busur','Lingkaran di awal busur','Lingkaran di akhir busur'],bola:['6 juring (pendekatan)','8 juring (pendekatan)','12 juring (pendekatan)']};
+function nl(){const a=NVN[S.m];$('nl').textContent=a?'Jaring '+(S.nv+1)+'/'+a.length+' · '+a[S.nv]:'Tidak ada jaring'}
+function boxNet(D,cells){const P={},o=[],q=[cells[0]],map={};cells.forEach(c=>map[c[0]+','+c[1]]=c);P[cells[0][0]+','+cells[0][1]]=[0,0];
+ while(q.length){const c=q.shift(),[x,y]=P[c[0]+','+c[1]],w=D[c[2]],h=D[c[3]];o.push(rc(x,y,w,h));
+  [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy])=>{const k=(c[0]+dx)+','+(c[1]+dy),n=map[k];if(n&&!P[k]){const nw=D[n[2]],nh=D[n[3]];P[k]=[dx>0?x+w:dx<0?x-nw:x,dy>0?y+h:dy<0?y-nh:y];q.push(n)}})}return o}
+function prismNet(n,a,t,i,j,up){const Rr=a/(2*Math.sin(PI/n)),ap=a/(2*Math.tan(PI/n)),pl=(q,ab)=>{const cx=q*a+a/2,cy=ab?-ap:t+ap,o=ab?PI/2+PI/n:-PI/2+PI/n;return Array.from({length:n},(_,k)=>[cx+Rr*Math.cos(o+2*PI*k/n),cy+Rr*Math.sin(o+2*PI*k/n)])};return[...Array.from({length:n},(_,q)=>rc(q*a,0,a,t)),pl(i,1),pl(j,up)]}
+function ngon(P,Q,n,away){const dx=Q[0]-P[0],dy=Q[1]-P[1],L=Math.hypot(dx,dy),ex=2*PI/n,mk2=sg=>{const v=[P,Q];let d=Math.atan2(dy,dx),c=Q;for(let k=2;k<n;k++){d+=sg*ex;c=[c[0]+L*Math.cos(d),c[1]+L*Math.sin(d)];v.push(c)}return v},cen=v=>[v.reduce((s,p)=>s+p[0],0)/n,v.reduce((s,p)=>s+p[1],0)/n],A=mk2(1),B=mk2(-1),dd=v=>Math.hypot(cen(v)[0]-away[0],cen(v)[1]-away[1]);return dd(A)>dd(B)?A:B}
+function fan(a,e,n,k,np){const th=2*Math.asin(Math.min(1,a/(2*e))),pt=i=>[e*Math.cos(i*th),e*Math.sin(i*th)],T=[];for(let i=0;i<n;i++)T.push([[0,0],pt(i),pt(i+1)]);return n*th>2*PI*.97?null:[...T,ngon(pt(k),pt(k+1),np,[0,0])]}
+function nets(){const v=S.v,m=S.m,i=S.nv;switch(m){
+ case'kubus':return boxNet([v.s,v.s,v.s],CN[i][1]);
+ case'balok':return boxNet([v.p,v.l,v.t],CN[i][1]);
+ case'prisma':return prismNet(6,v.a,v.t,...[[2,2,0],[0,5,0],[0,3,1]][i]);
+ case'prismaseg':return prismNet(3,v.a,v.t,...[[1,1,0],[0,2,0],[0,2,1]][i]);
+ case'limas':{const s=v.s,sl=Math.hypot(v.t,s/2),f=i&&fan(s,Math.hypot(v.t,s/Math.SQRT2),4,i==1?1:0,4);if(f)return f;return[rc(0,0,s,s),[[0,0],[s,0],[s/2,-sl]],[[0,s],[s,s],[s/2,s+sl]],[[0,0],[0,s],[-sl,s/2]],[[s,0],[s,s],[s+sl,s/2]]]}
+ case'limasseg':{const a=v.a,h=a*.866,sl=Math.hypot(v.t,a*Math.sqrt(3)/6),f=i&&fan(a,Math.hypot(v.t,a/Math.sqrt(3)),3,i==1?1:0,3);if(f)return f;const T=[[0,0],[a,0],[a/2,h]],G=[a/2,h/3];return[T,...[0,1,2].map(j=>{const P=T[j],Q=T[(j+1)%3],mx=(P[0]+Q[0])/2,my=(P[1]+Q[1])/2,nx=mx-G[0],ny=my-G[1],l=Math.hypot(nx,ny);return[P,Q,[mx+nx/l*sl,my+ny/l*sl]]})]}
+ case'tabung':{const W=2*PI*v.r,r=v.r,t=v.t,c=(x,y)=>cp(x,y,r);return[rc(0,0,W,t),...[[c(W/2,-r),c(W/2,t+r)],[c(r,-r),c(W-r,t+r)],[c(r,-r),c(W-r,-r)]][i]]}
+ case'kerucut':{const sl=Math.hypot(v.r,v.t),an=2*PI*v.r/sl,a0=PI/2-an/2,g=a0+[.5,0,1][i]*an;return[[[0,0],...cp(0,0,sl,40,a0,a0+an)],cp((sl+v.r)*Math.cos(g),(sl+v.r)*Math.sin(g),v.r)]}
+ case'bola':{const n=[6,8,12][i],r=v.r;return Array.from({length:n},(_,k)=>{const cx=(k+.5)*2*PI*r/n,L=[],R=[];for(let j=0;j<=12;j++){const ph=-PI/2+PI*j/12,w=PI*r*Math.cos(ph)/n;L.push([cx-w,r*ph]);R.unshift([cx+w,r*ph])}return[...L,...R]})}
+ default:return[]}}
+$('bNet').onclick=function(){if(S.m=='ling'){$('tip').textContent='Lingkaran tidak punya jaring. Pilih bangun ruang!';return}S.ft=S.ft?0:1;this.textContent=S.ft?'📦 Lipat Jaring':'📐 Buka Jaring';this.classList.toggle('on',!!S.ft);badge('aj');mark(2);setTimeout(()=>mark(3),1500);beep(520)};
+function nstep(d){const a=NVN[S.m];if(!a)return;S.nv=(S.nv+d+a.length)%a.length;nl();if(!S.ft)$('bNet').click();beep(450)}
+$('nP').onclick=()=>nstep(-1);$('nN').onclick=()=>nstep(1);
+function zoom(f){S.z=f?Math.min(3,Math.max(.4,S.z*f)):1}
+document.querySelectorAll('#zb button').forEach(b=>b.onclick=()=>zoom(+b.dataset.z));
+cv.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?1.1:.9)};
+const PT=new Map(),pdist=()=>{const a=[...PT.values()];return Math.hypot(a[0].clientX-a[1].clientX,a[0].clientY-a[1].clientY)};let pd=0;
+cv.onpointerdown=e=>{PT.set(e.pointerId,e);cv.setPointerCapture(e.pointerId);if(PT.size==1){S.drag=1;lx=e.clientX}else{S.drag=0;pd=pdist()}mark(2)};
+cv.onpointermove=e=>{if(!PT.has(e.pointerId))return;PT.set(e.pointerId,e);if(PT.size==2){const d=pdist();if(pd)zoom(d/pd);pd=d}else if(S.drag){S.ang+=(e.clientX-lx)*.012;lx=e.clientX}};
+cv.onpointerup=cv.onpointercancel=e=>{PT.delete(e.pointerId);S.drag=0;pd=0;if(PT.size==1){S.drag=1;lx=[...PT.values()][0].clientX}};
+// ---- scale
+function fit(){document.getElementById('stage').style.setProperty('--k',Math.min(innerWidth/1280,innerHeight/720))}addEventListener('resize',fit);fit();
+pick('kubus');showQ(0);cmp();ui();requestAnimationFrame(loop);
+</script></body></html>
